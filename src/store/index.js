@@ -7,7 +7,8 @@ export const store = new Vuex.Store({
   strict: true,
   state: {
     todos: [],
-    visibility: 'all'
+    visibility: 'all',
+    completed: false
   },
   mutations: {
     ADD_TODO (state, title) {
@@ -18,6 +19,12 @@ export const store = new Vuex.Store({
     },
     CHANGE_VISIBILITY (state, newVisibilityValue) {
       state.visibility = newVisibilityValue
+    },
+    REMOVE_TODO (state, index) {
+      state.todos.splice(index, 1)
+    },
+    CHANG_COMPLETE_STAT (state, {index, completed}) {
+      state.todos[index].completed = completed
     }
   },
   actions: {
@@ -26,6 +33,12 @@ export const store = new Vuex.Store({
     },
     changeVisibility ({commit}, newVisibilityValue) {
       commit('CHANGE_VISIBILITY', newVisibilityValue)
+    },
+    removeTodo ({commit}, index) {
+      commit('REMOVE_TODO', index)
+    },
+    changeStat ({commit}, {index, completed}) {
+      commit('CHANG_COMPLETE_STAT', {index, completed})
     }
   },
   getters: {
